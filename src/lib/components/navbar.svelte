@@ -1,35 +1,40 @@
 <link href="./navstyle.css" rel="stylesheet"/>
 <script lang="ts">
-    import { goto } from '$app/navigation';
-    import {isStarted, navigating, initialFade } from '../../stores/fades';
+    import {isCanvas, isStarted, navigating, initialFade } from '../../stores/fades';
     import { page } from '$app/state';
-   
-   const url = page.url 
+    import { get } from 'svelte/store'
 
-    const handleNavigation = (event: MouseEvent, href: string) => {
+    const toggle = () => {
         initialFade.set(false);
-        event.preventDefault(); 
+
         setTimeout(() => {
-            goto(href); 
+            const current = get(isCanvas);
+            isCanvas.set(!current); 
+            navigating.set(false)
         }, 1000);
     }
 </script>
 
 <div>
-    {#if $isStarted || url.pathname !== "/"} 
+    {#if $isStarted} 
     <nav class:fade-in={$initialFade}>
         <ul>
             <li>
-                <a href="/map" onclick={(event) => {
-                    navigating.set(true);
-                    handleNavigation(event, '/map')
-                }}>Map</a>
-            </li>
-            <li>
-                <a href="/" onclick={(event) => {
-                    navigating.set(true);
-                    handleNavigation(event, '/')
-                }}>Home</a>
+                <a 
+                    on:click={(e) => {
+                        e.preventDefault();
+                        navigating.set(true);
+                        toggle()
+                    }}
+                >
+                   <img 
+                    src="/world.png" 
+                    alt="Toggle map" 
+                    width="25" 
+                    height="25" 
+                    style="cursor: pointer"
+                    /> 
+                </a>
             </li>
         </ul>
     </nav>

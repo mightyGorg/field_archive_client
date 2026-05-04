@@ -1,8 +1,10 @@
 <link href='homestyle.css' rel='stylesheet'>
 <script lang="ts">
     import { Visualiser } from "$lib";
+    import Map from "../lib/components/map.svelte";
     import { audioPlayer } from '../stores/audio';
-    import { initialFade, isFading, isStarted, navigating } from "../stores/fades";
+    import { isCanvas, initialFade, isFading, isStarted, navigating } from "../stores/fades";
+
 
     let canvas: HTMLCanvasElement;
     let visualiser: Visualiser;
@@ -37,7 +39,18 @@
             >Field Archive
         </button>
     {/if}
-    <canvas bind:this={canvas}></canvas>
+
+    <canvas 
+        class:fade-in={$isFading}
+        style="display: {$isCanvas ? 'block' : 'none'}" 
+        bind:this={canvas}
+    />
+
+    {#if !$isCanvas}
+        <Map
+            style="display: {$isCanvas ? 'block' : 'none'}"/>
+    {/if}
+
 </div>
 
 

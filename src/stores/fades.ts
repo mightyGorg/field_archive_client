@@ -4,4 +4,5 @@ export let isFading = writable<boolean>(false)
 export let isStarted = writable<boolean>(false)
 export let navigating = writable<boolean>(false)
 export let initialFade = writable<boolean>(false)
+export let isCanvas = writable<boolean>(true)
 

@@ -9,14 +9,18 @@
 
     let map: mapboxgl.Map | null;
 
-    function initMap(node: HTMLElement | string) {
+    function initMap(node: HTMLElement) {
         map = new mapboxgl.Map({
             container: node,
             style: 'mapbox://styles/mapbox/light-v11',
             center: [-103.5917, 40.6699],
-			zoom: 3
+            zoom: 3
         });
     }
+
+    requestAnimationFrame(() => {
+        map?.resize();
+    });
 
     onDestroy(() => {
         if (map) map.remove();
@@ -31,6 +35,7 @@
       top: 0;
       bottom: 0;
       width: 100%;
+      height: 100vh;
     }
     .fade-in {
     animation: nav-fadein 1s linear forwards;
