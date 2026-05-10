@@ -16,7 +16,7 @@ export class AudioRepository {
         const data = await response.json(); 
         this.length = data.count; 
         while (this.idStore.size < data.count) {
-            let n: number = Math.floor(Math.random() * (data.count - 1 + 1) + 1); 
+            let n: number = Math.floor(Math.random() * (data.count) + 1); 
             this.idStore.add(n)
         }
         } catch (error) {

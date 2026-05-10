@@ -14,9 +14,9 @@
         isFading.set(true);
         initialFade.set(true)
         audioPlayer.subscribe(async player => {      
-        if (player) {    
+        console.log('audio subscription called...')
+        if (player) {
             setTimeout(() => isStarted.set(true), 1000);
-            
             visualiser = new Visualiser(canvas);
             visualiser.setCanvas();
 
@@ -27,6 +27,8 @@
                 requestAnimationFrame(renderFrame);  
             }};
             await player.playNext();
+            await player.engine.ctx.resume();
+            console.log(player.engine.ctx.state);
             renderFrame();
         }});
     }

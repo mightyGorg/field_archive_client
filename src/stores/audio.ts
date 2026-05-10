@@ -5,6 +5,7 @@ export const audioPlayer = writable<AudioPlayer | null>(null)
 export const isAudioPlaying = writable<boolean>(false) 
 
 export async function initialiseAudioPlayer() { 
+	console.log("initialising audio...")
     const player = new AudioPlayer();
     await player.initialise();
     audioPlayer.set(player) 

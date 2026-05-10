@@ -1,9 +1,10 @@
-import { AudioContextManager } from "./audioContextManager";
 import { AudioRepository } from "./audioRepository";
+import { AudioEngine } from "./audioEngine";
+import type { Track } from "../types/track";
 
 
 export class AudioPlayer {
-    private contextManager: AudioContextManager | null = null;
+    private engine: AudioEngine | null = null;
     public repo: AudioRepository;
     private currentIndex: number = 0;
     private duration: number | null = null
@@ -19,6 +20,7 @@ export class AudioPlayer {
 
     async playNext(fadeIn: number = 3): Promise<void> {
         const nextID: number = this.repo.getIDAtIndex(this.currentIndex);
+        console.log(`loading track ID ${nextID}`)
         await this.loadAndPlay(nextID, fadeIn);
         this.currentIndex = (this.currentIndex + 1) % this.repo.length 
         if (this.duration) {
@@ -27,7 +29,7 @@ export class AudioPlayer {
     }
 
     private scheduleNextTrack(fadeIn: number): void {
-        console.log(`Schedule Called`)
+        console.log(`scheduling next track...`)
         if (this.timeoutId) clearTimeout(this.timeoutId); 
         this.timeoutId = setTimeout(() => {
             this.playNext(fadeIn).catch((err) => {console.error('Error in playNext: ', err)});
@@ -35,14 +37,14 @@ export class AudioPlayer {
     }
 
     private async loadAndPlay(id: number, fadeIn: number): Promise<void> {
-        this.contextManager = new AudioContextManager;
         const response = await fetch(`/api/recordings/recording?id=${id}`)
         if (!response.ok) throw new Error(`Error ${response.status} could not fetch`);
-        const buffer = await this.contextManager.createBuffer(response);
-        this.duration = buffer.duration;
 
-        this.contextManager.createSource(buffer);
-        await this.contextManager.play(fadeIn, this.duration); 
+        const track: Track = await response.json();
+
+        this.engine = new AudioEngine(track.audioLocation);
+
+        await this.engine.play(fadeIn);
     }
 
     stop(): void {
@@ -53,7 +55,7 @@ export class AudioPlayer {
     }
 
     getFrequencyData(): Uint8Array {
-        if (this.contextManager) return this.contextManager.getFrequencyData(); 
+        if (this.engine) return this.engine.getFrequencyData(); 
         return new Uint8Array()
     }
 }
