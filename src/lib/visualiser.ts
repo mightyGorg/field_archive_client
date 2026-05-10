@@ -21,11 +21,11 @@ export class Visualiser {
         this.cvs.style.width = `${window.innerWidth}px`;
         this.cvs.style.height = `${window.innerHeight}px`;
 
-        this.ctx.scale(ratio, ratio);
+        this.ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
         this.W = (this.cvs.width = window.innerWidth);
         this.H = (this.cvs.height = window.innerHeight);
-        this.X = this.W - 1;
+        this.X = (this.W * 0.8) - 1;
     }
 
     setCanvas(): void {

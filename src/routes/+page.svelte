@@ -2,6 +2,7 @@
 <script lang="ts">
     import { Visualiser } from "$lib";
     import Map from "../lib/components/map.svelte";
+    import Sidebar from '../lib/components/sidebar.svelte'
     import { audioPlayer } from '../stores/audio';
     import { isCanvas, initialFade, isFading, isStarted, navigating } from "../stores/fades";
 
@@ -31,31 +32,33 @@
     }
     
 </script>
-<div class:fade-out={$navigating}>
-    {#if !$isStarted} 
-        <button 
-            onclick={start}
-            class:fade-out={$isFading}
-            >Field Archive
-        </button>
-    {/if}
+<div>
+    <div class='home-container'>
+        {#if !$isStarted} 
+            <button 
+                onclick={start}
+                class:fade-out={$isFading}
+                >Field Archive
+            </button>
+        {/if}
 
-    <canvas 
-        class:fade-in={$isFading}
-        style="display: {$isCanvas ? 'block' : 'none'}" 
-        bind:this={canvas}
-    />
+        <Sidebar 
+            isStarted={$isStarted}
+            initialFade={$initialFade}
+        />
+        <canvas 
+            class:fade-out={$navigating && !$isFading}
+            class:fade-in={$isFading && !$navigating}
+            class='spectrogram'
+            bind:this={canvas}
+        ></canvas>
 
-    {#if !$isCanvas}
-        <Map
-            style="display: {$isCanvas ? 'block' : 'none'}"/>
-    {/if}
+        {#if !$isCanvas}
+
+            <Map navigating={$navigating} isFading={$isFading}/>
+
+        {/if}
+
+    </div>
 
 </div>
-
-
-
-
-
-
-

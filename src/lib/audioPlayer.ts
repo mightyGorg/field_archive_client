@@ -56,6 +56,4 @@ export class AudioPlayer {
         if (this.contextManager) return this.contextManager.getFrequencyData(); 
         return new Uint8Array()
     }
-
-
 }

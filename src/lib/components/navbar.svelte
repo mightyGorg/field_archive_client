@@ -1,6 +1,6 @@
 <link href="./navstyle.css" rel="stylesheet"/>
 <script lang="ts">
-    import {isCanvas, isStarted, navigating, initialFade } from '../../stores/fades';
+    import {isCanvas, isStarted, navigating, initialFade, isFading } from '../../stores/fades';
     import { page } from '$app/state';
     import { get } from 'svelte/store'
 
@@ -8,9 +8,11 @@
         initialFade.set(false);
 
         setTimeout(() => {
-            const current = get(isCanvas);
-            isCanvas.set(!current); 
+            const current = get(isCanvas)
+            isCanvas.set(!current) 
+            isFading.set(true)
             navigating.set(false)
+            console.log($navigating)
         }, 1000);
     }
 </script>
@@ -23,16 +25,18 @@
                 <a 
                     on:click={(e) => {
                         e.preventDefault();
-                        navigating.set(true);
+                        isFading.set(false)
+                        navigating.set(true)
+                        console.log($navigating)
                         toggle()
                     }}
                 >
                    <img 
-                    src="/world.png" 
-                    alt="Toggle map" 
-                    width="25" 
-                    height="25" 
-                    style="cursor: pointer"
+                        src="/world.png" 
+                        alt="Toggle map" 
+                        width="25" 
+                        height="25" 
+                        style="cursor: pointer"
                     /> 
                 </a>
             </li>
