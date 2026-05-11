@@ -31,3 +31,4 @@ vite.config.ts
 .npmrc
 eslint.config.js
 .eslintignore
+.prettierrc.js

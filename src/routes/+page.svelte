@@ -26,6 +26,7 @@
                 visualiser.draw(freqData);
                 requestAnimationFrame(renderFrame);  
             }};
+
             await player.playNext();
             await player.engine.ctx.resume();
             renderFrame();
