@@ -22,17 +22,28 @@ export class AudioEngine {
         this.analyser.connect(this.ctx.destination);
     }
 
-    async play(fadeIn: number = 2) {
+    setFadeIn(fadeIn: number = 2) {
         this.gain.gain.setValueAtTime(0.001, this.ctx.currentTime);
         this.gain.gain.exponentialRampToValueAtTime(1, this.ctx.currentTime + fadeIn);
-//        this.gain.gain.setValueAtTime(
-//            1, 
-//            this.ctx.currentTime + (this.audio.duration ?? 0) - fadeIn
-//        );
-//        this.gain.gain.exponentialRampToValueAtTime(0.001, (this.audio.duration ?? 0) - 1)
+    }
+
+    setFadeOut(duration: number, fadeIn: number) {
+        this.gain.gain.setValueAtTime(1, duration - (this.ctx.currentTime + fadeIn) );
+        this.gain.gain.exponentialRampToValueAtTime(0.001, duration - 1) 
+    }
+
+    async play(fadeIn: number = 2, duration: number = 0) {
+        this.setFadeIn(fadeIn);
+        this.setFadeOut(duration, fadeIn)
+
         await this.ctx.resume();
-        await this.audio.play();
-        console.log(this.ctx.state)
+        console.log('audio context state: ', this.ctx.state)
+
+        try {
+            await this.audio.play();
+        } catch (err) {
+            console.log('Error playing audio: ', err)
+        }
     }
 
     pause() {

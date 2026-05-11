@@ -28,7 +28,6 @@
             }};
             await player.playNext();
             await player.engine.ctx.resume();
-            console.log(player.engine.ctx.state);
             renderFrame();
         }});
     }

@@ -19,10 +19,7 @@ export class AudioPlayer {
     }
 
     async playNext(fadeIn: number = 3): Promise<void> {
-        const nextID: number = this.repo.getIDAtIndex(this.currentIndex);
-        console.log(`loading track ID ${nextID}`)
-        await this.loadAndPlay(nextID, fadeIn);
-        this.currentIndex = (this.currentIndex + 1) % this.repo.length 
+        await this.loadAndPlay(fadeIn);
         if (this.duration) {
             this.scheduleNextTrack(fadeIn) 
         }
@@ -36,15 +33,16 @@ export class AudioPlayer {
         }, (this.duration ?? 0) * 1000);
     }
 
-    private async loadAndPlay(id: number, fadeIn: number): Promise<void> {
-        const response = await fetch(`/api/recordings/recording?id=${id}`)
+    private async loadAndPlay(fadeIn: number): Promise<void> {
+        const response = await fetch(`/api/recordings/random`)
         if (!response.ok) throw new Error(`Error ${response.status} could not fetch`);
 
         const track: Track = await response.json();
 
         this.engine = new AudioEngine(track.audioLocation);
+        this.duration = track.duration
 
-        await this.engine.play(fadeIn);
+        await this.engine.play(fadeIn, this.duration);
     }
 
     stop(): void {

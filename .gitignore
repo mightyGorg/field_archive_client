@@ -29,3 +29,5 @@ svelte.config.js
 tsconfig.json
 vite.config.ts
 .npmrc
+eslint.config.js
+.eslintignore

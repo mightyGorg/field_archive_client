@@ -39,18 +39,18 @@ export class Visualiser {
         const bufferLength = dataArray.length;
         const h = this.H / (bufferLength * 0.75);
         
-        let imgData = this.ctx.getImageData(1, 0, this.X, this.H);
+        const imgData = this.ctx.getImageData(1, 0, this.X, this.H);
         this.ctx.fillRect(0, 0, this.W, this.H);
         this.ctx.putImageData(imgData, 0, 0);
         this.ctx.imageSmoothingQuality = 'high';
 
         for (let i = 0; i < bufferLength; i++) {
-            let ratio = Math.pow(dataArray[i] / 255, 1.5);
-            let hue = Math.round(ratio * 120) + 180 % 360;
+            const ratio = Math.pow(dataArray[i] / 255, 1.5);
+            const hue = Math.round(ratio * 120) + 180 % 360;
             this.ctx.lineWidth = 1;
             this.ctx.beginPath();
-            let sat = '100%';
-            let lit = 10 + (70 * ratio) + '%';
+            const sat = '100%';
+            const lit = 10 + (70 * ratio) + '%';
             this.ctx.strokeStyle = `hsl(${hue}, ${sat}, ${lit}, ${ratio})`;
             this.ctx.moveTo(this.X, this.H - (i * h));
             this.ctx.lineTo(this.X, this.H - (i * h + h));

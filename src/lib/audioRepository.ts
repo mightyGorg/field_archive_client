@@ -1,3 +1,5 @@
+import type { Track } from "../types/track";
+
 export class AudioRepository {
     public idStore: Set<number>;
     public length: number
@@ -16,7 +18,7 @@ export class AudioRepository {
         const data = await response.json(); 
         this.length = data.count; 
         while (this.idStore.size < data.count) {
-            let n: number = Math.floor(Math.random() * (data.count) + 1); 
+            const n: number = Math.floor(Math.random() * (data.count) + 1); 
             this.idStore.add(n)
         }
         } catch (error) {
@@ -26,6 +28,22 @@ export class AudioRepository {
 
     getIDAtIndex(index: number): number {
         return [...this.idStore][index] 
+    }
+
+    async getRandom(): Promise<Track> {
+        try {
+            const response = await fetch('/api/recordings/random');
+
+            if (!response.ok) {
+                throw new Error('Unable to fetch random recording')
+            }
+
+            const track = await response.json()
+            return track
+        } catch (err) {
+            console.log('error fetching track: ', err)
+            return Promise.reject()
+        }
     }
 
 }

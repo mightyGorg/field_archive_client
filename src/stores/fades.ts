@@ -1,8 +1,8 @@
 import { writable } from "svelte/store";
 
-export let isFading = writable<boolean>(false)
-export let isStarted = writable<boolean>(false)
-export let navigating = writable<boolean>(false)
-export let initialFade = writable<boolean>(false)
-export let isCanvas = writable<boolean>(true)
+export const isFading = writable<boolean>(false)
+export const isStarted = writable<boolean>(false)
+export const navigating = writable<boolean>(false)
+export const initialFade = writable<boolean>(false)
+export const isCanvas = writable<boolean>(true)
 
