@@ -1,96 +1,91 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; 
-    font-family: Verdana;
+html,
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	font-family: Verdana;
 }
 
 .home-container {
-    display: grid;
-    grid-template-columns: 20% 80%;
-    grid-template-rows: 20% 20% 20% 20% 20%;
-    height: 100vh;
-    width: 100vw;
+	display: grid;
+	grid-template-columns: 20% 80%;
+	grid-template-rows: 20% 20% 20% 20% 20%;
+	height: 100vh;
+	width: 100vw;
 }
 
 .spectrogram {
-    grid-column-start: 2;
-    grid-row: 1 / 6;
-    display: block;
-    width: 100%;
-    height: 100%;
+	grid-column-start: 2;
+	grid-row: 1 / 6;
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 
 .sidebar {
-    grid-column-start: 1;
-    grid-column-end: 2;
+	grid-column-start: 1;
+	grid-column-end: 2;
 }
 
 #map_box_container {
-      grid-column: 2 / -1;
-      grid-row: 1 / -1;
-      width: 100%;
-      height: 100vh;
+	grid-column: 2 / -1;
+	grid-row: 1 / -1;
+	width: 100%;
+	height: 100vh;
 }
 
 #map {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 15px 30px;
-    font-size: 16px;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer; 
-    filter: blur(0px);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 15px 30px;
+	font-size: 16px;
+	background-color: #ffffff;
+	color: rgb(0, 0, 0);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	filter: blur(0px);
 }
 
-.fade-out{
-    animation: title-fadeout 1s linear forwards;
+.fade-out {
+	animation: title-fadeout 1s linear forwards;
 }
 
-.fade-in{
-    animation: nav-fadein 1s linear forwards;
+.fade-in {
+	animation: nav-fadein 1s linear forwards;
 }
 
-@keyframes title-fadeout 
-{
-    0% 
-    {
-        opacity:1;
-        filter: blur(0px);
-        color: #000000;
-    }
-    100% 
-    {
-        opacity:0;
-        filter: blur(40px);
-        color: #ffffff;
-    }
+@keyframes title-fadeout {
+	0% {
+		opacity: 1;
+		filter: blur(0px);
+		color: #000000;
+	}
+	100% {
+		opacity: 0;
+		filter: blur(40px);
+		color: #ffffff;
+	}
 }
 
-@keyframes nav-fadein 
-{
-    0% 
-    {
-        opacity:0;
-        filter: blur(40px);
-        color: #ffffff;
-    }
-    100% 
-    {
-        opacity:1;
-        filter: blur(0px);
-        color: #000000;
-    }
+@keyframes nav-fadein {
+	0% {
+		opacity: 0;
+		filter: blur(40px);
+		color: #ffffff;
+	}
+	100% {
+		opacity: 1;
+		filter: blur(0px);
+		color: #000000;
+	}
 }

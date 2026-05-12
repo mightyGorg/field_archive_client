@@ -1,22 +1,22 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import { audioPlayer, initialiseAudioPlayer } from '../stores/audio';
-    import { isFading, isStarted, navigating, isCanvas } from '../stores/fades';
-    import 'mapbox-gl/dist/mapbox-gl.css'; 
-    import Navbar from '../lib/components/navbar.svelte';
+	import { onMount } from 'svelte'
+	import { audioPlayer, initialiseAudioPlayer } from '../stores/audio'
+	import { isFading, isStarted, navigating, isCanvas } from '../stores/fades'
+	import 'mapbox-gl/dist/mapbox-gl.css'
+	import Navbar from '../lib/components/navbar.svelte'
 
-    onMount(() => {
-        console.log('mounting layout...') 
-        isFading.set(false)
-        isStarted.set(false)
-        navigating.set(false) 
-        isCanvas.set(true)
-        audioPlayer.subscribe(player => {
-            if (!player) initialiseAudioPlayer();
-        });   
-        });
+	onMount(() => {
+		console.log('mounting layout...')
+		isFading.set(false)
+		isStarted.set(false)
+		navigating.set(false)
+		isCanvas.set(true)
+		audioPlayer.subscribe((player) => {
+			if (!player) initialiseAudioPlayer()
+		})
+	})
 </script>
-<Navbar /> 
-<div class="player">
-</div>
-<slot/>
+
+<Navbar />
+<div class="player"></div>
+<slot />

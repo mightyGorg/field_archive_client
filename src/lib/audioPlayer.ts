@@ -34,7 +34,8 @@ export class AudioPlayer {
 
 	private async loadAndPlay(fadeIn: number): Promise<void> {
 		const response = await fetch(`/api/recordings/random`)
-		if (!response.ok) throw new Error(`Error ${response.status} could not fetch`)
+		if (!response.ok)
+			throw new Error(`Error ${response.status} could not fetch`)
 
 		const track: Track = await response.json()
 

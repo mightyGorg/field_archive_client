@@ -24,7 +24,10 @@ export class AudioEngine {
 
 	setFadeIn(fadeIn: number = 2) {
 		this.gain.gain.setValueAtTime(0.001, this.ctx.currentTime)
-		this.gain.gain.exponentialRampToValueAtTime(1, this.ctx.currentTime + fadeIn)
+		this.gain.gain.exponentialRampToValueAtTime(
+			1,
+			this.ctx.currentTime + fadeIn
+		)
 	}
 
 	setFadeOut(duration: number, fadeIn: number) {

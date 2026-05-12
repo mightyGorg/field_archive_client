@@ -10,7 +10,9 @@ export class Visualiser {
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.cvs = canvas
-		this.ctx = this.cvs.getContext('2d', { willReadFrequently: true }) as CanvasRenderingContext2D
+		this.ctx = this.cvs.getContext('2d', {
+			willReadFrequently: true
+		}) as CanvasRenderingContext2D
 		this.ratio = window.devicePixelRatio || 1
 		this.W = 0
 		this.H = 0
@@ -51,7 +53,12 @@ export class Visualiser {
 		const bufferLength = dataArray.length
 		const h = this.H / (bufferLength * 0.75)
 
-		const imgData = this.ctx.getImageData(this.ratio, 0, this.X * this.ratio, this.H * this.ratio)
+		const imgData = this.ctx.getImageData(
+			this.ratio,
+			0,
+			this.X * this.ratio,
+			this.H * this.ratio
+		)
 
 		this.ctx.fillRect(0, 0, this.W, this.H)
 		this.ctx.putImageData(imgData, 0, 0)
