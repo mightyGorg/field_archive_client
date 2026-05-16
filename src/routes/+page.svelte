@@ -2,7 +2,7 @@
 	import { Visualiser } from '$lib'
 	import Map from '../lib/components/map.svelte'
 	import Sidebar from '../lib/components/sidebar.svelte'
-	import { audioPlayer } from '../stores/audio'
+	import { audioPlayer, currentRecording } from '../stores/audio'
 	import {
 		isCanvas,
 		initialFade,
@@ -12,13 +12,16 @@
 	} from '../stores/fades'
 
 	let canvas: HTMLCanvasElement
+	let recording: Track | null
 	let visualiser: Visualiser
+	let player: AudioPlayer | null = null
 
 	const start = async () => {
 		isFading.set(true)
 		initialFade.set(true)
-		audioPlayer.subscribe(async (player) => {
+		audioPlayer.subscribe(async (p) => {
 			console.log('audio subscription called...')
+			player = p
 			if (player) {
 				setTimeout(() => isStarted.set(true), 1000)
 				visualiser = new Visualiser(canvas)
@@ -33,7 +36,7 @@
 				}
 
 				await player.playNext()
-				await player.engine.ctx.resume()
+
 				renderFrame()
 			}
 		})
@@ -47,7 +50,12 @@
 			<button onclick={start} class:fade-out={$isFading}>Field Archive </button>
 		{/if}
 
-		<Sidebar isStarted={$isStarted} initialFade={$initialFade} />
+		<Sidebar
+			recording={$currentRecording}
+			isStarted={$isStarted}
+			initialFade={$initialFade}
+		/>
+
 		<canvas
 			class:fade-out={$navigating && !$isFading}
 			class:fade-in={$isFading && !$navigating}
