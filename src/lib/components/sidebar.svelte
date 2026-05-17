@@ -1,7 +1,5 @@
 <script>
 	const props = $props()
-
-	console.log(props.recording)
 </script>
 
 <div
@@ -11,8 +9,9 @@
 >
 	<h1>Field Archive</h1>
 	<h3>{props.recording?.title}</h3>
-	<h5>[{'xx.xxxxx'}, {'xx.xxxxxx'}]</h5>
+	<h5>{props.recording?.locationdescription}</h5>
+	<h5>[{props.recording?.latitude}, {props.recording?.longitude}]</h5>
 	<p>
-		{props.recording?.description}
+		{props.recording?.recordingdescription}
 	</p>
 </div>

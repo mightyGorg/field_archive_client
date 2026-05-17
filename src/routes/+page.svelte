@@ -12,7 +12,6 @@
 	} from '../stores/fades'
 
 	let canvas: HTMLCanvasElement
-	let recording: Track | null
 	let visualiser: Visualiser
 	let player: AudioPlayer | null = null
 

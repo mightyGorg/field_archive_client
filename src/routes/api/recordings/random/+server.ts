@@ -9,6 +9,9 @@ export async function GET() {
 		error(500, err.error.message)
 	}
 	let track = (await response.json()) as Track
-	track = { ...track, audioLocation: BUCKET_URL + FOLDER + `/${track.id}.mp3` }
+	track = {
+		...track,
+		audioLocation: BUCKET_URL + FOLDER + `/${track.recordingid}.mp3`
+	}
 	return json(track)
 }

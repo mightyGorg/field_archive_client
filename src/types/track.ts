@@ -1,5 +1,5 @@
 export type Track = {
-	id: number
+	recordingid: number
 	title: string
 	audioLocation: string
 	dateUploaded: Date
